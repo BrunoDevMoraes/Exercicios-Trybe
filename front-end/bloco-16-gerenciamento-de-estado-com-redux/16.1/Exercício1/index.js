@@ -1,4 +1,3 @@
-window.onload = function() {
   const ESTADO_INICIAL = {
     colors: ['white', 'black', 'red', 'green', 'blue', 'yellow'],
     index: 0,
@@ -9,11 +8,33 @@ window.onload = function() {
     const { index, colors } = state;
     switch (action.type) {
       case NEXT_COLOR:
-        index >= 0 && index < colors.length ? index += 1 : index = 0;
+        return {
+          ...state, 
+          index: index >= 0 && index < colors.length - 1 ? index + 1 : 0,
+        }
       case PREVIOUS_COLOR:
-        index <= colors.length && index > 0 ? index -= 1 : index = colors.length;
-      default: state;
+        return {
+          ...state,
+          index: index <= colors.length - 1 && index > 0 ? index - 1 : colors.length - 1,
+        }
+      default:
+        return state;
     }
   }
   const store = Redux.createStore(reducer);
-}
+
+  document.querySelector('#previous').addEventListener('click', () => {
+    store.dispatch({type: PREVIOUS_COLOR})
+  });
+  document.querySelector('#next').addEventListener('click', () => {
+    store.dispatch({type: NEXT_COLOR})
+    console.log('batata')
+  })
+
+  store.subscribe(() => {
+    const colorName = document.getElementById('value');
+    const container = document.getElementById('container');
+    const {colors, index} = store.getState();
+    colorName.innerHTML = colors[index];
+    container.style.backgroundColor = colors[index];
+  });
