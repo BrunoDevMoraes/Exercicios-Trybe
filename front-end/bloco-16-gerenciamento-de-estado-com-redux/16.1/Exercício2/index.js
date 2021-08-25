@@ -43,7 +43,7 @@ const ESTADO_INICIAL_1 = {
     }
   };
 
-const rootReducer = combineReducers({meuPrimeiroReducer, meuSegundoReducer});
+const rootReducer = Redux.combineReducers({meuPrimeiroReducer, meuSegundoReducer});
 
 const store = Redux.createStore(rootReducer);
 
@@ -67,6 +67,6 @@ store.subscribe(() => {
 
   const nome2 = document.querySelector('#nome-2');
   const sobrenome2 = document.querySelector('#sobrenome-2');
-  nome2.innerHTML = globalState.meuPrimeiroReducer.nome;
+  nome2.innerHTML = globalState.meuSegundoReducer.nome;
   sobrenome2.innerHTML = globalState.meuSegundoReducer.sobrenome;
 });
