@@ -6,6 +6,16 @@
   const PREVIOUS_COLOR = 'PREVIOUS_COLOR';
   const CREATE_COLOR = 'CREATE_COLOR';
 
+  function criarCor() {
+    const oneChar = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
+    let cor = '#';
+    const aleatorio = () => Math.floor(Math.random() * oneChar.length);
+    for (let i = 0; i < 6; i += 1) {
+        cor += oneChar[aleatorio()];
+    }
+    return cor;
+  }
+
   const reducer = (state = ESTADO_INICIAL, action) => {
     const { type, newColor } = action;
     const { index, colors } = state;
@@ -24,7 +34,7 @@
         return {
           ...state,
           colors: [...colors, newColor],
-          index: colors.indexOf(newColor, -1),
+          index: colors.length,
         }
       default:
         return state;
@@ -47,16 +57,6 @@
     container.style.backgroundColor = colors[index];
     console.log(colors[index]);
   });
-
-  function criarCor() {
-    const oneChar = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
-    let cor = '#';
-    const aleatorio = () => Math.floor(Math.random() * oneChar.length);
-    for (let i = 0; i < 6; i += 1) {
-        cor += oneChar[aleatorio()];
-    }
-    return cor;
-}
 
 const button = document.createElement('button');
 button.innerHTML = 'Random Color';
